@@ -1,17 +1,35 @@
 #!/bin/bash
 
-OUTPUT=($(python elves.py  tr -d '[],'))
-echo ${OUTPUT[0]}
+OUTPUT=($(python testing.py  tr -d '[],'))
+#First 4  lines on the list  
+echo ${OUTPUT[0]}  ## getting the size of the array
 echo ${OUTPUT[1]}
 echo ${OUTPUT[2]}
 echo ${OUTPUT[3]}
+echo ${OUTPUT[4]}
 
-third=${OUTPUT[2]}
-echo $third
-numbers=$(echo "$third" | tr -cd '[:digit:].')
+n=${OUTPUT[0]}
+echo "Lines list size in elves.py: $n"
 
-echo "Number: $numbers"
+counter=3
+final=0
 
-first_last_digit=${numbers:0:1}${numbers: -1}
-echo "the new sum is: $first_last_digit"
+while [ $counter -le $n ]
+do 
+    third=${OUTPUT[counter]}
+    echo "Line Multiple of 3  :$third"
+    numbers=$(echo "$third" | tr -cd '[:digit:].')
+
+    echo "Number without characters: $numbers"
+    
+    first_last_digit=${numbers:0:1}${numbers: -1}
+    
+    echo "First and last number is: $first_last_digit"
+    final=$((first_last_digit+final))
+    
+
+    ((counter=counter + 3))
+done
+echo "The total sum  is : $final"
+
 
